@@ -95,3 +95,19 @@ exports.user_delete = (req, res, next) => {
       });
     });
 };
+
+exports.user_update = (req, res, next) => {
+  User.update({ _id: req.params.userId, name: req.body.name, phoneNumber: req.body.phoneNumber })
+  .exec()
+  .then(result => {
+    res.status(200).json({
+      message: 'User updated'
+    });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  });
+};
