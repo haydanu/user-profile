@@ -1,9 +1,10 @@
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+
+const app = express();
 
 const usersRoutes = require('./api/routes/users');
 
@@ -13,6 +14,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
+
+//home page
+app.get('/', (req, res, next) => {
+  res.send('hello gigel user!')
+});
 
 //Routes to handle request
 app.use('/user', usersRoutes);
@@ -33,6 +39,5 @@ app.use((error, req, res, next) => {
     }
   });
 });
-
 
 module.exports = app;
