@@ -3,17 +3,21 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const expressValidator = require('express-validator');
 
 const app = express();
 
 const usersRoutes = require('./api/routes/users');
 
-mongoose.connect('mongodb://localhost/gigel-user');
+mongoose.connect('mongodb://localhost:27017/gigel-user');
 
+app.use(express.static('public'));
+
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(expressValidator());
 
 //home page
 app.get('/', (req, res, next) => {
