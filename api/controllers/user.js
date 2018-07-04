@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require("bcrypt");
 const mongoose = require('mongoose');
+const { check, validationResult } = require('express-validator/check');
 
 const User = require("../models/user");
 
@@ -65,27 +66,27 @@ exports.user_update = (req, res, next) => {
   });
 };
 
-exports.change_password = (req, res, next) => {
-  User.update({password: req.body.password}).exec().then(bcrypt.hash(req.body.password, 10, (err, hash) => {
-    if (err) {
-      return res.status(500).json({error: err});
-    } else {
-      User.findById(req.params.userId, (err, user) => {
-        if (err) {
-          return next(err);
-        }
-        user.password = hash
-        user.save()
-      }).then(result => {
-        console.log(result);
-        res.status(201).json({message: "password changed"});
-      }).catch(err => {
-        console.log(err);
-        res.status(500).json({error: err});
-      });
-    }
-  }))
-};
+// exports.change_password = (req, res, next) => {
+//   User.update({password: req.body.password}).exec().then(bcrypt.hash(req.body.password, 10, (err, hash) => {
+//     if (err) {
+//       return res.status(500).json({error: err});
+//     } else {
+//       User.findById(req.params.userId, (err, user) => {
+//         if (err) {
+//           return next(err);
+//         }
+//         user.password = hash
+//         user.save()
+//       }).then(result => {
+//         console.log(result);
+//         res.status(201).json({message: "password changed"});
+//       }).catch(err => {
+//         console.log(err);
+//         res.status(500).json({error: err});
+//       });
+//     }
+//   }))
+// };
 
 exports.all_users = (req, res, next) => {
   User.find({}).exec().then(result => {
