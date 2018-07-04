@@ -1,8 +1,5 @@
 # User Profile REST-API
 
-* Development: http://localhost:8000
-* Production: http://temudokter-api.herokuapp.com
-
 ## How To
 
 ### Run Your Teminal
