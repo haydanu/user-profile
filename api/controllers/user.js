@@ -96,3 +96,16 @@ exports.all_users = (req, res, next) => {
     res.status(500).json({error: err});
   });
 };
+
+exports.user_logout = (req, res, next) => {
+  if (req.session) {
+    req.session.destroy(function(err) {
+      if(err) {
+        res.status(500).json({error: err});
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
+};

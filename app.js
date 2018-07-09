@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
+const session = require('express-session')
 
 const app = express();
 
@@ -18,6 +19,11 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(expressValidator());
+app.use(session( {
+  secret: 'bigmistake',
+  resave: true,
+  saveUninitialized: false
+}));
 
 //home page
 app.get('/', (req, res, next) => {
